@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Ecom</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+	<script type="text/javascript">
+
+		function getCookie(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+
+
+		function uuidv4() {
+		  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+		    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+		    return v.toString(16);
+		  });
+		}
+
+
+
+
+		let device = getCookie('device')
+
+		if (device == null || device == undefined){
+			device = uuidv4()
+		}
+
+		document.cookie ='device=' + device + ";domain=;path=/"
+
+	</script>
+
+
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	  <a class="navbar-brand" href="/main/">Ecom</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+	      <li class="nav-item active">
+	        <a class="nav-link" href="/main/">Store <span class="sr-only">(current)</span></a>
+	      </li>
+	      <li class="nav-item active">
+	        <a class="nav-link" href="#">Cart</a>
+	      </li>
+	 
+	    </ul>
+
+	  </div>
+	</nav>
+
+     <div class="container">
+			<br>
+            <!----->
+	
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="box-element">
+		
+						<a  class="btn btn-outline-dark" href="/main/">&#x2190; Continue Shopping</a>
+		
+						<br>
+						<br>
+						<table class="table">
+							<tr>
+								<th><h5>Items: <strong>{{order.get_cart_items}}</strong></h5></th>
+								<th><h5>Total:<strong> ${{order.get_cart_total|floatformat:2}}</strong></h5></th>
+								<th>
+									<a  style="float:right; margin:5px;" class="btn btn-success" href="">Checkout</a>
+								</th>
+							</tr>
+						</table>
+		
+					</div>
+		
+					<br>
+					<div class="box-element">
+						<div class="cart-row">
+							<div style="flex:2"><strong><center>Pitures</center></strong></div>
+							<div style="flex:2"><strong>Item</strong></div>
+							<div style="flex:1"><strong>Price</strong></div>
+							<div style="flex:1" style="text-align:center;"><strong>Quantity</strong></div>
+							<div style="flex:1"><strong>Total</strong></div>
+							<div style="flex:1"><strong>Update</strong></div>
+							<div style="flex:1" style="text-align: -webkit-center;"><strong>Remove</strong></div>
+		
+						</div>
+						<form method="post" action='/removecart/'>
+						{% csrf_token %} 
+						{% for member in clist %}
+						<div class="cart-row">
+							<div style="flex:2"><center><img class="row-image" src="{{member.6}}" style='height:30px;width:auto'></center></div>
+							<div style="flex:2"><p>{{ member.0 }}</p></div>
+							<div style="flex:1"><p>{{ member.1 }}</p></div>
+
+							<div style="flex:1" style="margin: auto;" >
+
+								<p class="quantity" style="font-size: large">
+									<button type='submit' value="{{member.8}}" name='revbtn' style="border-style: none;background-color: white;">  	
+									<svg type='submit' value="{{member.8}}" name='revbtn' width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-left-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+										<path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+									</svg>
+									</button>
+
+								   {{ member.2 }}
+								
+									<button type='submit' value="{{member.9}}" name='revbtn' style="border-style: none;background-color: white;">  		
+								   	<svg  width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-right-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<path d="M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+								  	</svg>
+								  	</button>
+								</p>
+
+							</div>
+							<div style="flex:1"><p>{{ member.4 }}</p></div>
+							<div style="flex:1">
+								<a class="btn btn-sm btn-dark" href="{% url 'product' member.5 %}">Update</a>
+							</div>
+							<div style="flex:1" style="text-align: -webkit-center;">
+							<!---	<a class="btn btn-sm btn-danger" href="/removecart/" name="{{member.7}}">Remove</a> -->
+								<button type='submit' value="{{member.7}}" name='revbtn'  style="border-style: none;background-color: white;">
+									<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+										<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+										<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+									  </svg>	
+
+								</button> 
+							</div>
+						</div>
+						{% endfor %}
+						</form>
+					</div>
+				</div>
+			</div>
+		
+
+            <!----->
+    </div>
+
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

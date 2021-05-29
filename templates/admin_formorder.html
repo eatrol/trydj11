@@ -1,0 +1,449 @@
+<!--
+=========================================================
+* Paper Dashboard 2 - v2.0.1
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/paper-dashboard-2
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
+
+Coded by www.creative-tim.com
+
+ =========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="/static/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="/static/assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Paper Dashboard 2 by Creative Tim
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="/static/assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/static/assets/css/paper-dashboard.css?v=2.0.1" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="/static/assets/demo/demo.css" rel="stylesheet" />
+</head>
+
+<body class="">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+      <div class="logo">
+        <a href="#" class="simple-text logo-mini">
+          <div class="logo-image-small">
+            <img src="static/assets/img/logo-small.png">
+          </div>
+          <!-- <p>CT</p> -->
+        </a>
+        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
+          管理系統
+          <!-- <div class="logo-image-big">
+            <img src="static/assets/img/logo-big.png">
+          </div> -->
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li>
+            <a href="dashboard.html">
+              <i class="nc-icon nc-bank"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li  class="active"> 
+            <a href="/adminlistorder/">
+		          <i class="nc-icon nc-paper"></i> 
+   		        <p>Order Management</p>    
+            </a>
+
+          </li>
+          <li>
+            <a href="/adminlistpro/">
+              <i class="nc-icon nc-diamond"></i>
+              <p>Product Management</p>
+            </a>
+          </li>
+          <li>
+            <a href="/adminlistcus/">
+              <i class="nc-icon nc-single-02"></i>
+              <p>Customer List</p>
+            </a>
+          </li>
+          <li>
+            <a href="./user.html">
+              <i class="nc-icon nc-chart-pie-36"></i>
+              <p>Analysis</p>
+            </a>
+          </li>
+          <li>
+            <a href="./tables.html">
+              <i class="nc-icon nc-settings-gear-65"></i>
+              <p>Setting</p>
+            </a>
+          </li>
+
+          <li class="active-pro">
+            <a href="./upgrade.html">
+              <i class="nc-icon nc-spaceship"></i>
+              <p>Upgrade to PRO</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="javascript:;">Paper Dashboard 2</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form>
+              <div class="input-group no-border">
+                <input type="text" value="" class="form-control" placeholder="Search...">
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <i class="nc-icon nc-zoom-split"></i>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link btn-magnify" href="javascript:;">
+                  <i class="nc-icon nc-layout-11"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Stats</span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item btn-rotate dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="nc-icon nc-bell-55"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Some Actions</span>
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link btn-rotate" href="javascript:;">
+                  <i class="nc-icon nc-settings-gear-65"></i>
+                  <p>
+                    <span class="d-lg-none d-md-block">Account</span>
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="row">
+          <div class="col-md-4">
+           
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">訂購商品 Order Item</h4>
+              </div>
+              <div class="card-body">
+                <ul class="list-unstyled team-members">
+<!------------------------------------------------------------>
+                  {% for oritem in order %}
+                  <li>
+                    <div class="row">
+                      <div class="col-md-2 col-2">
+                        <div class="avatar">
+                          <img src="{% static oritem.2 %}" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                        </div>
+                      </div>
+                      <div class="col-md-5 col-7">
+                        {{oritem.0}}
+                        <br />
+                        <span class="text-muted"><small>Offline</small></span>
+                      </div>
+                      <div class="col-md-5 col-3 text-right">
+                       NTD ${{oritem.1}}
+                      </div>
+                    </div>
+                  </li>
+                  {% endfor %}
+<!------------------------------------------------------------------->
+		              <hr>
+                  <li>
+                    <div class="row">
+                      <div class="col-md-2 col-2">
+                        <div class="avatar">
+ 
+                        </div>
+                      </div>
+                      <div class="col-md-5 col-7">
+                       <h6> Total</h6> 
+
+                      </div>
+                      <div class="col-md-5 col-3 text-right">
+                       <h6> NTD ${{clist_sum}} </h6> 
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+
+
+<!-----------訂購人資訊------------------------------------------------------>
+
+           <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">訂購人資訊</h4>
+              </div>
+              <div class="card-body">
+                <ul class="list-unstyled team-members">
+                  <li>
+                    <div class="row">
+                      <div class="col-md-1 col-2" style="text-align:center">
+                        <div>  <i class="nc-icon nc-circle-10" style="width:20%;"></i> </div>   
+                      </div>
+                      <div class="col-md-4 col-2 text-right"> 訂購人: </div>
+                      <div class="col-md-6 col-7 test-left"> {{product.cName}}  </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row">
+                      <div class="col-md-1 col-2" style="text-align:center">
+                        <div >  <i class="nc-icon nc-circle-10" style="width:20%;"></i> </div>   
+                      </div>
+                      <div class="col-md-4 col-2 text-right"> 訂購人電話: </div>
+                      <div class="col-md-6 col-7 test-left"> {{product.cPhone}} </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row">
+                      <div class="col-md-1 col-2" style="text-align:center">
+                        <div >  <i class="nc-icon nc-circle-10" style="width:20%;"></i> </div>   
+                      </div>
+                      <div class="col-md-4 col-2 text-right"> 訂購人信箱: </div>
+                      <div class="col-md-6 col-7 test-left"> {{product.cMail}}  </div>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="row">
+                      <div class="col-md-1 col-2" style="text-align:center">
+                        <div >  <i class="nc-icon nc-circle-10" style="width:20%;"></i> </div>   
+                      </div>
+                      <div class="col-md-4 col-2 text-right"> 訂購人地址: </div>
+                      <div class="col-md-6 col-7 test-left"> {{product.cAddress}}  </div>
+                    </div>
+                  </li>    
+		            </ul>             
+		          </div>
+	          </div>
+            
+          </div>
+          <div class="col-md-8">
+            <div class="card card-user">
+              <div class="card-header">
+                <h4 class="card-title">訂單資訊 Order Information</h4>
+              </div>
+              <div class="card-body">
+                <!-----------------商品表單------------------->
+                <!-------------------------------------------->
+                <form method="POST" action="/adminupdateorder/">
+                {% csrf_token %} 
+                  <div class="row">
+                    <div class="col-md-2 pr-1">
+                      <div class="form-group">
+                        <label>編號 id</label>
+                        <input name="fid" type="hidden" value="{{product.id}}">
+                        <input type="text" class="form-control" disabled=""  placeholder="3" value="{{product.id}}">
+                      </div>
+                    </div>
+		                <div class="col-md-5 pr-1">
+                      <div class="form-group">
+                        <label>訂單號碼 name</label>
+                        <input name="fname" type="text" class="form-control" placeholder="Company" value="{{product.name}}">
+                      </div>
+                    </div>
+                    <div class="col-md-3 pr-1">
+                      <div class="form-group">
+                        <label>價格 price</label>
+                        <input name="fprice" type="text" class="form-control" placeholder="Company" value="{{product.price}}">
+                      </div>
+                    </div>
+		              </div>
+                   <div class="row">     		
+                    <div class="col-md-3 pr-1">
+                      <div class="form-group">
+                        <label>是否接受訂單 accept</label>
+  			                <select name="faccept" class="custom-select mr-sm-2" id="inlineFormCustomSelectPref">
+    				              <option {{iaccept.True}} value="1">1-接受</option>
+    				              <option {{iaccept.False}} value="">0-未接受</option>
+  			                </select>
+                      </div>
+                    </div>
+                    <div class="col-md-5 pr-1">
+                      <div class="form-group">
+                        <label>定單狀態 status</label>
+  			                <select name="fstatus" class="custom-select mr-sm-2" id="inlineFormCustomSelectPref">
+    			            	  <option {{istatus.訂單待處理}} value="訂單待處理">1-訂單待處理</option>
+    				              <option {{istatus.訂單處理中}} value="訂單處理中">2-訂單處理中</option>
+    				              <option {{istatus.等待付款}} value="等待付款">3-等待付款</option>
+    				              <option {{istatus.已付款待出貨}} value="已付款待出貨">4-已付款待出貨</option>
+    			            	  <option {{istatus.已出貨}} value="已出貨">5-已出貨</option>
+    			            	  <option {{istatus.已到貨}} value="已到貨">6-已到貨</option>
+  			                </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>收件人姓名 cName</label>
+     			              <input name="fcName" type="text" class="form-control is-valid" id="ccna" value="{{product.cName}}" required>
+      			            <div class="valid-feedback">confirm</div>
+                      </div>
+                    </div>
+                  </div>
+ 		              <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>電話 cPhone</label>
+                        <input name="fcPhone" type="text" class="form-control" placeholder="Home Address" value="{{product.cPhone}}">
+                      </div>
+                    </div>
+                  </div>
+ 		              <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>電子信箱 cMail</label>
+                        <input name="fcMail" type="text" class="form-control" placeholder="Home Address" value="{{product.cMail}}">
+                      </div>
+                    </div>
+                  </div>
+	 	              <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>收件人地址 cAddress</label>
+                        <input name="fcAddress" type="text" class="form-control" placeholder="Home Address" value="{{product.cAddress}}">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>備註 memo</label>
+                        <textarea class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label>shoplist</label>
+                        <input name="fshoplist" type="text" class="form-control" placeholder="Home Address" value="{{product.shoplist}}">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label>shopqty</label>
+                        <input name="fshopqty" type="text" class="form-control" placeholder="Home Address" value="{{product.shopqty}}">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label>shopprice</label>
+                        <input name="fshopprice" type="text" class="form-control" placeholder="Home Address" value="{{product.shopprice}}">
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+		              <div class="col-md-2">
+                    <div class="update ml-auto mr-auto">
+                      <button type="submit" class="btn btn-primary btn-round" name="update">Update</button>
+                    </div>
+		              </div>
+		              <div class="col-md-2">
+                    <div class="update ml-auto mr-auto">
+                      <a href="/adminlistorder/"><input class="btn btn-danger btn-round" name="cancel" value="Cancel" style="width:100px"></a> 
+                    </div>
+		              </div>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer class="footer footer-black  footer-white ">
+        <div class="container-fluid">
+          <div class="row">
+            <nav class="footer-nav">
+              <ul>
+                <li><a href="https://www.creative-tim.com" target="_blank">Creative Tim</a></li>
+                <li><a href="https://www.creative-tim.com/blog" target="_blank">Blog</a></li>
+                <li><a href="https://www.creative-tim.com/license" target="_blank">Licenses</a></li>
+              </ul>
+            </nav>
+            <div class="credits ml-auto">
+              <span class="copyright">
+                © <script>
+                  document.write(new Date().getFullYear())
+                </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="/static/assets/js/core/jquery.min.js"></script>
+  <script src="/static/assets/js/core/popper.min.js"></script>
+  <script src="/static/assets/js/core/bootstrap.min.js"></script>
+  <script src="/static/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="/static/assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="/static/assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="/static/assets/js/paper-dashboard.min.js?v=2.0.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+  <script src="/static/assets/demo/demo.js"></script>
+</body>
+
+</html>

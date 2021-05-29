@@ -1,0 +1,356 @@
+<!--
+教學網址：https://www.youtube.com/watch?v=94EPx1NMMjU&t=445s
+Goal :  1. 吃金幣小遊戲
+-->
+
+
+<html>
+    <head>
+
+        <style type="text/css">
+        button{
+            height : 50px;
+            width: 300px
+            
+
+        }
+        #but1{
+            position: relative;
+           
+            background-color: transparent;
+            
+            border: none;
+            width:100px;
+            height:100px;
+            opacity: 0.2;
+        }
+        #but2{
+            position: relative;
+            
+            background-color: transparent;
+            
+            border: none;
+            width:100px;
+            height:100px;
+            opacity: 0.2;
+        }
+
+
+
+        </style>
+        <script type="text/JavaScript">
+            var mygamepiece;
+            var myobs = [];
+            var frame = 1;
+            var count = 1;
+            var score = 0;
+            var lost =0;
+            var lostmax = 100;
+            var coinspeed = 5;
+            var mariospeed = 7;
+            var  myMusic;
+
+            window.addEventListener('keyup', function(e){  
+                var keyID = e.code;
+                
+                switch(keyID){
+                    case 'ArrowLeft':
+                        
+                        clearmove();
+                        break;
+                    case 'ArrowRight':
+                        clearmove();
+                        break;
+                    case 'ControlLeft':
+                        clearmove();
+                        break;
+                    case 'AltRight':
+                        clearmove();
+                        break;
+                }
+            })
+
+            window.addEventListener('keydown', function(e){  
+                var keyID = e.code;
+                //alert(keyID);
+                switch(keyID){
+                    case 'ArrowLeft':
+                        moveup(2);
+                        break;
+                    case 'ArrowRight':
+                        moveup(1);
+                        break;
+
+                    case 'ControlLeft':
+                        moveup(2);
+                        break;
+                    case 'AltRight':
+                        moveup(1);
+                        break;
+                }
+            })
+
+
+            function component(width,height,x,y,color,pic,type){
+                this.width = width;
+                this.height = height;
+                this.x = x;
+                this.y = y;
+                this.speedx = 0 ;
+                this.speedy = 0 ;
+                this.color = color;
+                this.image = new Image()
+                this.image.src = pic;
+                this.type = type;   // 0:用顏色方塊 , 1:用真實圖檔畫圖                
+                this.draw = function(){
+                    var ctx=document.getElementById("cvs").getContext("2d"); 
+                    ctx.fillStyle = this.color;
+                    //ctx.fillRect(this.x,this.y,this.width,this.height);
+                    if (this.type ==1){
+                        ctx.drawImage(this.image,this.x,this.y,this.width,this.height);
+                    }
+                    
+                }
+
+                this.newpos = function(){
+                    this.x = this.x + this.speedx;
+                    this.y = this.y + this.speedy;
+                    if (this.x < 10 ){
+                        this.x = 10
+                    } 
+                    if (this.x + this.width > 790){
+                        this.x = 790- this.width;
+                    }
+                }
+
+                this.checkcrash = function(obj){
+                    var myleft = this.x;
+                    var myright = this.x + this.width;
+                    var mytop = this.y;
+                    var mybot = this.y + this.height;
+                    var youleft = obj.x;
+                    var youright = obj.x+ obj.width;
+                    var youtop = obj.y;
+                    var youbot = obj.y + obj.height;
+                    if (myright> youleft && myleft <youright && mytop< youbot && mybot > youtop ){
+                        return true;
+                    }else{
+                        return false;
+                    }
+
+                }
+            }
+
+            function obsinterval(n){
+                if ((frame/n)% 1 ==0) {
+                    return true;
+                }else{
+                    return false;
+                }
+
+            }
+
+            function clear(){
+                var ctx=document.getElementById("cvs").getContext("2d"); 
+                var bg = new Image()
+                bg.src = "/static/mario/mariobg.jpg"
+                
+                ctx.drawImage(bg,0,0,800,600);
+                
+                //ctx.fillStyle = "white";
+                //ctx.fillRect(0,0,800,600);
+
+            }
+
+            function updategame(){
+
+                if (lost > lostmax){
+                    endgame();
+                    return;
+                }
+
+
+
+                for(var i=0;i<myobs.length;i++){
+                    
+                     if (mygamepiece.checkcrash(myobs[i])){
+                         // 如果撞到金幣就得1分
+                        myobs.splice(i,1);
+                        count -= 1;
+                        score += 1;
+                        myMusic.stop();
+                        myMusic.play();
+                     }else{
+                        if(myobs[i].y > 600){
+                            myobs.splice(i,1);
+                            count -= 1;
+                            lost += 1;  
+                        }else{
+                            myobs[i].y+= coinspeed;
+                        }
+                        
+                     } 
+                }
+                
+                //console.log(myobs);
+                if (obsinterval(30)){
+                    var barH = Math.random()*600+50;
+                    myobs[count] = new component(50,80,barH,0,"white",'/static/mario/coin.png','1');
+                    count +=1;
+                   
+                }
+
+                // 1. 畫底圖
+                clear();
+
+                // 2. 畫主角位置
+                
+ 
+
+                mygamepiece.newpos(); 
+                mygamepiece.draw();
+                
+                // 3. 畫金幣
+                for (var i=0;i<myobs.length;i++){                       
+                        myobs[i].draw();    
+                }
+
+                // 4. 畫分數
+                drawscore(score,lost);
+
+                frame += 1;
+                var show=document.getElementById("show");
+                show.innerHTML = frame;
+                                
+            }
+  
+            function moveup(pk){
+                switch (pk){
+                    case 1:
+                        mygamepiece.speedx += mariospeed;
+                        mygamepiece.image.src ="/static/mario/mario1.png";
+                        break;
+                    case 2:
+                        mygamepiece.speedx += -1*mariospeed;
+                        mygamepiece.image.src ="/static/mario/mario2.png";
+                        break;
+                    case 3:
+                        mygamepiece.speedy += -1*mariospeed;
+                        break;
+                    case 4:
+                        mygamepiece.speedy += mariospeed;
+                        break;
+                }
+              
+            }
+
+            function clearmove(){
+                mygamepiece.speedx = 0;
+                mygamepiece.speedy = 0;
+            }
+
+            function endgame(){
+                var ctx=document.getElementById("cvs").getContext("2d"); 
+                clearmove();
+                for(var i=0;i<myobs.length;i++){
+                    myobs[i].speedx = 0;
+                    myobs[i].speedy = 0;
+                }
+                ctx.font = '46pt Calibri';
+                ctx.textAlign = 'center'
+                ctx.fillStyle="brown";
+                ctx.fillText("Game Over", 400, 300);
+
+                var show=document.getElementById("show");
+                show.innerHTML = "<button onclick='startgame();' style='height:20px;'>重新開始</button><br>"
+            }
+
+            function startgame(){
+                score = 0;
+                lost = 0;
+                count = 1;
+                frame = 1;
+                myobs = [];
+                
+                mygamepiece = new component(80,120,400,440,"red",'/static/mario/mario1.png','1');
+                myobs[0] = new component(50,80,700,0,"white",'/static/mario/coin.png','1');
+                mygamepiece.draw();
+                myobs[0].draw();
+                coinsound = new sound("/static/mario/coin-sound.mp3");
+                coinsound.play();
+
+
+            }
+
+            function drawscore(score){
+                var ctx=document.getElementById("cvs").getContext("2d"); 
+                ctx.font = '20pt Calibri';
+                ctx.textAlign = 'start'
+                ctx.fillStyle="brown";
+                var showtext = "Score : " + score;
+                ctx.fillText(showtext, 50, 50); 
+                var showtext = "Lost : " + lost;
+                ctx.fillText(showtext, 250, 50);
+
+
+            }
+
+            function sound(src) {
+                this.sound = document.createElement("audio");
+                this.sound.src = src;
+                this.sound.setAttribute("preload", "auto");
+                this.sound.setAttribute("controls", "none");
+                this.sound.style.display = "none";
+                document.body.appendChild(this.sound);
+                this.play = function(){
+                    this.sound.play();
+                }
+                this.stop = function(){
+                    this.sound.pause();
+                    this.sound.currentTime = 0;
+                }
+            }                   
+
+
+            window.onload = function(){
+                mygamepiece = new component(80,120,400,440,"red",'/static/mario/mario1.png','1');
+                myobs[0] = new component(50,80,700,0,"white",'/static/mario/coin.png','1');
+
+                mygamepiece.draw();
+                myobs[0].draw();
+                myMusic = new sound("/static/mario/coin.mp3");
+                
+                //startgame();
+                
+                window.setInterval(updategame,20);
+            }
+
+        </script>
+
+    </head>
+    <body>
+        <div style="height:90vh;width:auto;text-align: center;">
+        <div id="show" style="height:24px;">1</div>
+        
+        <button id="but1" onmousedown="moveup(2);" onmouseup="clearmove();" ontouchstart="moveup(2);" >
+            <img src="/static/mario/left.png" style="height:100%;"></button>
+        <canvas id="cvs" width="800px" height="600px" style="border:1px solid black"></canvas>
+        <button id="but1" onmousedown="moveup(1);" onmouseup="clearmove();" ontouchstart="moveup(1);" >
+            <img src="/static/mario/right.png" style="height:100%;"></button>
+        <br>
+
+        
+        <!----第一種控制方式, 按一下了自己會跑--->
+        
+        </div>
+
+        
+        <!--
+        <button onmousedown="moveup(3);" onmouseup="clearmove();">top</button>
+        <button onmousedown="moveup(4);" onmouseup="clearmove();">bottom</button>
+        --->
+
+
+    </body>
+    
+</html>

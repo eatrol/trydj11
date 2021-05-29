@@ -1,0 +1,167 @@
+<!--
+教學名稱: 17-圖面裁切
+教學網址：https://www.youtube.com/watch?v=mL5eCbXBVG8
+
+Tag: #javascript #canvas
+
+Goal : 開發可上傳照片 進行處理後儲存的
+    1. HTML增加一個input , onchange=xxxx() 設定觸發動作的函數loadfile()
+    2. cvs.toDataURL("image/png");          產出圖面連節網址
+
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="urt-8"/>
+        <title>try</title>
+
+
+        <style type="text/css">
+    
+            .slider {
+                -webkit-appearance: none;
+                width: 250px;
+                height: 7px;
+                border-radius: 5px;  
+                background: #d3d3d3;
+                outline: none;
+                opacity: 0.7;
+                -webkit-transition: .2s;
+                transition: opacity .2s;
+                }
+    
+            .slider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 25px;
+                height: 25px;
+                border-radius: 50%; 
+                background: #4CAF50;
+                cursor: pointer;
+            }
+    
+            .slider::-moz-range-thumb {
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                background: #4CAF50;
+                cursor: pointer;
+            }
+    
+        </style>
+
+
+
+        <script type="text/javascript">
+        var cvs,ctx;
+        var img = new Image();  
+        var pWidth,pHeight
+        var x = 0;
+        var y =0;
+        var ra;
+      
+        window.onload=function(){
+            //讀取HTML的照片
+            cvs=document.getElementById("cvs");
+            ctx=cvs.getContext("2d");
+            ctx.fillStyle="gray"
+            ctx.fillRect(0,0,cvs.width,cvs.height);
+
+        };
+
+        // 上傳照片後觸發的動作,畫圖
+        function loadfile(input){
+            var file = input.files[0];              //宣告file為讀取上傳的第一筆資料
+            var src = URL.createObjectURL(file);    //設定src為檔案連結
+
+            //載入影像並顯示
+            img.src = src;
+            img.onload=function(){
+                ra = 2*cvs.width/img.width;
+                pWidth = img.width*ra;
+                pHeight = img.height*ra;
+                ctx.drawImage(this,0,0,pWidth,pHeight);
+            };
+        };
+
+        // 調整圖面放大縮小
+        function zoom(){
+            var slide = document.getElementById("slide1");
+            ratio = slide.value/100*ra;
+            pWidth = img.width*ratio;
+            pHeight= img.height*ratio
+                     
+            ctx.fillStyle="white"
+            ctx.fillRect(0,0,cvs.width,cvs.height);   // 畫出AA區位置
+            ctx.drawImage(img,x,y,pWidth,pHeight);
+        }
+
+        // 調整圖面水平 垂直方向
+        function shift(){
+            x = document.getElementById("sliderX").value;
+            y = document.getElementById("sliderY").value; 
+            ctx.fillStyle="white"            
+            ctx.fillRect(0,0,cvs.width,cvs.height);   // 畫出AA區位置
+            ctx.drawImage(img,x,y,pWidth,pHeight);   
+        }
+
+        // 儲存圖片
+        function savefile(){
+            var fname = document.getElementById("fname").value;
+            var link =  document.getElementById("ddd");
+            link.download= fname + ".png";
+            link.href=cvs.toDataURL("image/png");
+            link.click();
+        };
+
+
+
+
+
+        </script>
+        <style type="text/css"> 
+        </style>   
+    </head>
+    <body>
+        <input type="file" onchange="loadfile(this);">
+        <button onclick="savefile();">儲存檔案</button>
+        檔名 <input id='fname' value="myPhoto">
+    
+     
+
+        <br><br>
+
+        
+        <table>
+        <tr><td>放大縮小</td>
+        <td class="slidecontainer">
+            <input id="slide1" type="range" min="1" max="100" value="100" class="slider" id="myRange" oninput="zoom();">
+        </td></tr>
+       
+
+        
+        <tr><td>水平移動</td>
+        <td class="slidecontainer">
+            <input id="sliderX" type="range" min="-300" max="300" value="0" class="slider" oninput="shift();">
+        </td></tr>
+     
+
+
+        <tr><td>垂直移動</td>
+        <td class="slidecontainer">
+            <input id="sliderY" type="range" min="-300" max="300" value="0" class="slider" oninput="shift();">
+        </td></tr>
+        </table>
+        <br>
+
+
+        <canvas id="cvs" width="{{width}}" height="{{height}}" style="border:1px solid #000000">
+        </canvas>
+        <br>
+        <a id="ddd" href="link.href" style="display:none;">點我下載</a>
+        
+    </body>
+
+</html>
+

@@ -1,0 +1,382 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8" />
+    <title>myfishing game</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+
+
+<script type="text/javascript">
+
+
+
+var config = {
+    type: Phaser.CANVAS,
+    width: 375,
+    height: 812,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 0 },
+            debug: false
+        }
+    },
+    scene: {
+        preload: preload,
+        create: create,
+        update: update
+    }
+};
+
+var factor = 1;
+
+var player, playerX, playerY, playerspeed, stars;
+var platforms;
+var cursors;
+var frametime, gameOver, onfishing,fishrate;
+var hookspeed, hookX, hookY, hooklineX,hooklineY ;
+var score, scoreText, scoreX, scoreY;
+var worm, wormText, wormX, wormY;
+var button1X, button1Y , button1onclick ,button2X ,button2Y,button2onclick,button3X ,button3Y,button3onclick;
+
+
+function initial(){
+
+    playerX = 100;
+    playerY = 200;
+    playerspeed = 160;
+
+    frametime=0;
+    gameOver = false;
+    onfishing = false;
+    fishrate = 250;
+
+    hookspeed = 400;
+    hookX = 17;
+    hookY = 50;
+    hooklineX = 18;
+    hooklineY = 20;
+
+    score = 0;
+    scoreX = 40;
+    scoreY = 39;
+
+    worm = 5;
+    wormX = 140;
+    wormY = 75;
+
+    button1X = 320;
+    button1Y = 760;
+    button1onclick = false;
+    button2X = 196;
+    button2Y = 86;
+    button2onclick = false;
+    button3X = 34;
+    button3Y = 775;
+    button3onclick = false;
+}
+
+
+var game = new Phaser.Game(config);
+
+function preload (){
+    this.load.image('bg1', '/static/fish/bg1.png');
+    this.load.image('fish00','/static/fish/fish00.png');
+    this.load.image('fish01','/static/fish/fish01.png');
+    this.load.image('fish10','/static/fish/fish10.png');
+    this.load.image('fish11','/static/fish/fish11.png');
+    this.load.image('fish20','/static/fish/fish20.png');
+    this.load.image('fish21','/static/fish/fish21.png');
+    this.load.image('fish30','/static/fish/fish30.png');
+    this.load.image('fish31','/static/fish/fish31.png');
+  
+    this.load.spritesheet('cat', '/static/fish/cat.png', { frameWidth: 100, frameHeight: 79 });
+    this.load.image('hook','/static/fish/hook.png');
+    this.load.image('hookline','/static/fish/hookline.png');
+    this.load.image('button1','/static/fish/button1.png');
+    this.load.image('button2','/static/fish/button2.png');
+    this.load.image('button3','/static/fish/button3.png')
+    this.load.audio('coin','/static/fish/coin.mp3');
+    this.load.audio('animaltheme','/static/fish/animaltheme.mp3');
+
+}
+
+function create (){
+
+    initial(); // 載入初始設定參數
+
+    music = this.sound.add('coin',{volume:0.2} );
+    
+    music2 = this.sound.add('animaltheme',{loop:true, volume:3});
+    music2.loop = true;
+    music2.stop();
+    music2.play();
+
+    //  加入背景圖面
+    this.add.image(game.config.width/2, game.config.height/2, 'bg1').setScale(0.333);
+    
+    //platforms = this.physics.add.staticGroup();
+
+    // 加入按鈕
+    button1   = this.physics.add.sprite(button1X, button1Y, 'button1');
+    button2   = this.physics.add.sprite(button2X, button2Y, 'button2');
+    button3   = this.physics.add.sprite(button3X, button3Y, 'button3');
+
+    
+    // 加入主角, 魚勾, 魚線
+    player   = this.physics.add.sprite(playerX, playerY, 'cat');
+    hook     = this.physics.add.sprite(playerX+hookX,playerY+hookY,'hook');
+    fakehook = this.physics.add.sprite(2000,2000,'hook');           // 假魚鉤,當上鉤時會改用這個以避開物理碰撞
+
+    hookline = this.physics.add.sprite(100+hooklineX,200+hooklineY,'hookline');     // 魚線,當上鉤時會改用這個以避開物理碰撞
+    //player.setScale(0.5);
+    
+    player.setCollideWorldBounds(true);
+    hook.setCollideWorldBounds(true);
+    hook.setBounce(1);
+
+    //  Our player animations, turning, walking left and walking right.
+    this.anims.create({
+        key: 'turn',
+        frames: [ { key: 'cat', frame: 2 } ],
+        frameRate: 20
+    });
+
+    this.anims.create({
+        key: 'right',
+        frames: this.anims.generateFrameNumbers('cat', { start: 1, end: 3 }),
+        frameRate: 8,
+        repeat: 0
+    });
+
+    //  Input Events
+    cursors = this.input.keyboard.createCursorKeys();
+
+    //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
+    stars = this.physics.add.group({
+        key: 'fish11',
+        repeat: 5,
+        setXY: { x: 12, y: 0, stepY: 70 }
+        
+    });
+
+    stars.children.iterate(function (child) {
+        child.setVelocityX(Phaser.Math.FloatBetween(10, 30));
+        child.y = Phaser.Math.FloatBetween(300, 600);
+        child.setScale(factor);
+    });
+
+    getfish = this.physics.add.group();
+
+
+    // 秀出分數跟時間
+    scoreText = this.add.text(scoreX, scoreY, '0', { fontSize: '20px', fill: '#000' });
+    wormText = this.add.text(wormX, wormY, worm, { fontSize: '20px', fill: '#000' });
+
+    timetext = this.add.text(200,16,'time:'+frametime,{ fontSize: '24px', fill: '#000' });
+    
+
+    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
+    this.physics.add.overlap(hook, stars, collectFish, null, this);
+   
+
+}
+
+function update (){
+
+    if (cursors.space.isDown){
+        //initial();
+        music2.stop();
+        this.scene.restart();
+    }
+
+    if (gameOver){
+        timetext.setText('Game Over');
+        
+        game.scene.scenes[0].physics.pause();  // this.physics.pause();
+        return;
+    }
+    if (onfishing){
+        hookline_update();
+
+        // button1.setInteractive().on('pointerdown', () => {
+        // })
+        if (fakehook.y < playerY+hookY || hook.y<playerY+hookY){
+            player.anims.play('right', true);
+            getfish.children.iterate(function (child) {
+                child.x= player.x +60;
+                child.y= player.y -60 ;
+                
+            });
+        }
+        
+
+        if (fakehook.y < playerY+hookY-50 || hook.y<playerY+hookY-50){
+            onfishing = false;
+            
+            hook.enableBody(true, player.x+hookX, player.y+hookY, true, true);
+            hook.setVelocityY(0);
+            fakehook.y =2000;
+            fakehook.setVelocityY(0);
+
+            getfish.children.iterate(function (child) {
+                child.disableBody(true, true);
+            });
+           
+            console.log(hook.x)  
+            gameOver = worm < 0 ? true:false;
+        }
+
+    }else{
+        if (cursors.left.isDown){
+            player.setVelocityX(-1*playerspeed);
+            hook.x = player.x +hookX;
+            hookline.x = player.x + hooklineX;
+            
+           // player.anims.play('left', true);
+        } else if (cursors.right.isDown){
+            player.setVelocityX(playerspeed);  
+            hook.x = player.x +hookX;
+            hookline.x = player.x + hooklineX;
+            //player.anims.play('right', true);
+        } else {
+            player.setVelocityX(0); 
+            hook.x = player.x +hookX;
+            hookline.x = player.x + hooklineX;
+            hook.setVelocityX(0); 
+            //player.anims.play('turn');
+        }
+
+        if (cursors.down.isDown){
+            gofishing();
+            //this.scene.restart();
+        }
+
+        // 如果按下 button1 : 開始釣魚
+        button1.setInteractive().on('pointerdown', () => {
+            button1onclick = true;
+        })
+
+        button1.setInteractive().on('pointerup', () => {
+            if(button1onclick && onfishing == false ){
+                gofishing();
+                button1onclick=false;
+            }
+        })
+
+        // 以觸碰方式來控制主角方向
+        var pointer = this.input.activePointer;
+        if (pointer.isDown && pointer.y >150 && pointer.y <650) {
+            var tospeed = pointer.x > player.x ? playerspeed : -1*playerspeed;
+            player.setVelocityX(tospeed);  
+            hook.x = player.x +hookX;
+            hookline.x = player.x + hooklineX;
+        }
+    }
+
+    // 如果按下 button2 : 開始魚數量增加
+    button2.setInteractive().on('pointerdown', () => {
+        button2onclick = true;
+    })
+
+    button2.setInteractive().on('pointerup', () => {
+        if(button2onclick){
+            worm += 10;
+            wormText.setText(worm);
+            button2onclick=false;
+            
+        }
+    })
+
+
+    button3.setInteractive().on('pointerdown', () => {
+        button3onclick = true;
+    })
+
+    button3.setInteractive().on('pointerup', () => {
+        if(button3onclick){
+            music2.stop();
+            this.scene.restart();
+            button3onclick=false;
+        }
+    })
+
+
+
+    // 更新時間 , 每250(fishrate) frametime產生新魚
+
+    timetext.setText('time:'+frametime);
+    if(frametime % fishrate == 0 ){
+        newfish(stars);
+    }
+    frametime += 1;
+
+}
+
+// 產生新的魚
+function newfish(stars){
+    var direct = Phaser.Math.FloatBetween(0, 2);            // 隨機決定魚的位置 :1左邊 0:右邊
+    var ftype = Math.floor(Phaser.Math.FloatBetween(0, 4)); // 隨機決定魚的類別 0 ~ 3
+
+    var x1 = direct > 1 ? 10 : game.config.width-30;                     // 魚的初始Ｘ座標
+    var y1 = Phaser.Math.FloatBetween(300, 600);        // 魚的初始Ｙ座標
+    var v1 = direct > 1 ? Phaser.Math.FloatBetween(10, 30) : -1*Phaser.Math.FloatBetween(10, 30);
+    
+    var bbb = stars.create(x1,y1,'fish'+ftype+Math.floor(direct));
+    bbb.setVelocityX(v1);
+}
+
+
+function collectFish (hook, star){
+    // 當碰撞時把所有魚鉤 跟 上鉤的魚disable
+    music.play();
+    star.disableBody(true, true);   //
+    hook.disableBody(true, true);   //
+    
+
+    fakefish = getfish.create(hook.x, hook.y-3, star.texture.key);
+    fakefish.setVelocityY(-0.5*hookspeed);
+
+    fakehook.x = hook.x;
+    fakehook.y = hook.y;
+    fakehook.setVelocityY(-0.5*hookspeed);
+
+   
+    //  Add and update the score
+    score += 10;
+    scoreText.setText(score);
+}
+
+function hookline_update(){
+    var hook1 = hook.active ? hook: fakehook;
+    var deltaY = hook1.y - player.y - hookY ;
+    var centerY = (hook1.y + player.y)/2;
+    hookline.y = centerY;
+    hookline.setScale(1,deltaY/10);
+   
+}
+
+function gofishing(){
+    player.setVelocityX(0);
+    hook.setVelocityX(0);
+    hook.setVelocityY(hookspeed);
+    worm -= 1;
+    wormText.setText(worm);
+    onfishing = true;
+}
+
+
+
+
+</script>
+
+</body>
+</html>
