@@ -1,0 +1,50 @@
+
+    
+    <div class="" style="background-color: rgb(218, 218, 218);">
+        <div class="" style="height:1px"></div>
+        <div class="" style="background-color:white; margin-top:5%;margin-left:20%;margin-right:20%;margin-bottom:10%;padding: 30px; ">
+        <h2>[Knitting time 編織時光] 謝謝你的訂單 #{{name}} !</h2>
+        <p>訂單狀態為：處理中</p>
+        <p>付款狀態為：未付款</p>
+        <p>送貨狀態為：備貨中</p>
+        <p>有關訂單的查詢或要聯絡編織時光，請登入以下連結。如果還未設立帳戶，請按「忘記密碼」設立你的帳戶。</p>
+        <button style="width:100%;height:30px">點我連結</button>
+        <hr>
+        <p>訂單日期</p>
+        <p>{{ordertime}} </p>
+        <div style="height:1px"></div>
+        <p>訂單號碼</p>
+        <p>{{name}}</p>
+        <div style="height:1px"></div>
+        <p>訂購人</p>
+        <p>{{cName}}</p>
+        <div style="height:1px"></div>
+        <p>電話號碼</p>
+        <p>{{cPhone}}</p>
+        <div style="height:1px"></div>
+        <p>收件地址</p>
+        <p>{{cAddress}}</p>
+        <div style="height:1px"></div>
+        <p>訂單狀態</p>
+        <p>處理中</p>
+        <hr>
+        <p><b>訂購商品</b></p>
+        
+        <table style="width:100%">
+            {% for member in order %}
+            <tr><td style="width:70%">{{member.0}}</td><td style="width:30%">NTD $ {{member.1}}</td></tr>
+            {% endfor %}
+        </table>
+
+        <table style="width:100%">
+            <tr><td style="width:70%"></td><td style="width:30%"><b>小計: NTD ${{clist_sum}} </b></td></tr>
+            <tr><td style="width:70%"></td><td style="width:30%"><b>運費: NTD $40 </b></td></tr>
+            <tr><td style="width:70%"></td><td style="width:30%"><b>合計: NTD ${{clist_pay}}  </b></td></tr>
+        </table>
+
+        </div>
+
+        <div class="" style="height:1px"></div>
+    </div>
+
+    

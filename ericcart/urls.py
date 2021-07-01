@@ -36,6 +36,12 @@ urlpatterns = [
     path('blog/',views.blog),
     path('aboutus/',views.aboutus),
 
+    path('login/', views.login),   
+    path('logout/', views.logout),   
+    path('userpage/', views.userpage),  
+    path('newuser/', views.newuser), 
+    
+
     path('main/',views.main),   
     path('product/<str:pk>/', views.product, name="product"),  #後面的name="???" 是指在HTML的代號, 原則上寫一樣就好/
     path('addtocart/<str:pk>/',views.addtocart,name="addtocart"),

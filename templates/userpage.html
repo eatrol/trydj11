@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>編織。時光| Knitting time</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Lightbox-->
+    <link rel="stylesheet" href="{% static 'vendor/lightbox2/css/lightbox.min.css' %">
+    <!-- Range slider-->
+    <link rel="stylesheet" href="{% static 'vendor/nouislider/nouislider.min.css' %}">
+    <!-- Bootstrap select-->
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-select/css/bootstrap-select.min.css' %}">
+    <!-- Owl Carousel-->
+    <link rel="stylesheet" href="{% static 'vendor/owl.carousel2/assets/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/owl.carousel2/assets/owl.theme.default.css' %}">
+    <!-- Google fonts-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static 'css/style.default.css' %}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/favicon.png">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+
+  
+  </head>
+  <body>
+    <div class="page-holder bg-light">
+      <!-- navbar-->
+      <!-- navbar-->
+      <header class="header bg-white">
+        <div class="container px-0 px-lg-3">
+          <nav class="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><a class="navbar-brand" href="/"><img src="/static/images/knitforlove.png" style="height:50px;margin-right:10px;margin-bottom: 10px;"><span class="font-weight-bold text-uppercase text-dark" style="margin:inherit">編織。時光</span></a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item" style="height:50px;"></li>
+
+                <li class="nav-item" style="margin:auto;">
+                  <!-- Link--> <a class="nav-link" href="/" >主頁</a>
+                </li>
+                <li class="nav-item" style="margin:auto">
+                  <!-- Link--><a class="nav-link" href="/knitshop/">商店</a>
+                </li>
+                <li class="nav-item dropdown" style="margin:auto"><a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">商品類別</a>
+                  <div class="dropdown-menu mt-3" aria-labelledby="pagesDropdown"><a class="dropdown-item border-0 transition-link" href="/knitshop/">記號圈系列</a><a class="dropdown-item border-0 transition-link" href="/product/2/">工具包</a><a class="dropdown-item border-0 transition-link" href="/cart/">毛線</a><a class="dropdown-item border-0 transition-link" href="/checkout/">其他</a></div>
+                </li>
+                <li class="nav-item" style="margin:auto">
+                  <!-- Link--><a class="nav-link active" href="/product/2/">相片藝廊</a>
+                </li>
+                <li class="nav-item" style="margin:auto">
+                  <!-- Link--><a class="nav-link" href="/blog/">BLOG</a>
+                </li>
+                <li class="nav-item" style="margin:auto">
+                  <!-- Link--><a class="nav-link" href="/aboutus/">關於我們</a>
+                </li>
+
+              </ul>
+              <ul class="navbar-nav ml-auto">               
+                <li class="nav-item"><a class="nav-link" href="/cart/"> <i class="fas fa-dolly-flatbed mr-1 text-gray"></i>購物車<small class="text-gray">({{cart_sum}})</small></a></li>
+                <li class="nav-item"><a class="nav-link" href="#"> <i class="far fa-heart mr-1"></i><small class="text-gray"> (0)</small></a></li>
+                <li class="nav-item"><a class="nav-link" href="#"> <i class="fas fa-user-alt mr-1 text-gray"></i>Login</a></li>
+              </ul>
+            </div>
+          </nav> 
+        </div>
+     
+      
+      
+
+        <div class="container">
+          <!--hero section-->
+          <!-- <section class="py-5 bg-light" style="background: url( {% static 'images/herocart.png' %} )">
+      
+              <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+                <div class="col-lg-6">
+                  <h1 class="h2 text-uppercase mb-0">product</h1>
+                </div>
+                <div class="col-lg-6 text-lg-right">
+                  <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-lg-end mb-0 px-0" style="background:none;">
+                      <li class="breadcrumb-item "><a href="/">Home</a></li>
+                      <li class="breadcrumb-item " aria-current="page"><a href="/knitshop/">Shop</a></li>
+                      <li class="breadcrumb-item " aria-current="page">{{product.cata}}</li>
+                      <li class="breadcrumb-item active" aria-current="page">其他</li>
+                    </ol>
+                  </nav>
+                </div>
+              </div>
+    
+          </section> -->
+        </div>
+        <br>
+
+
+
+      </header>
+      <!--  Modal -->
+
+
+
+
+    
+
+    
+      <section class="py-5">
+        <div class="container">
+
+          <div class="row mb-1" style="margin-left:10px">
+
+            <p>歡迎光臨 {{ unit.userid}}</p><br>
+
+
+          </div>
+          <div class="row mb-3" style="margin-left:10px">
+            <a href="/logout/"> 登出</a>
+
+          </div>
+
+          <!-- DETAILS TABS-->
+          <ul class="nav nav-fill nav-tabs border-0" id="myTab" role="tablist">
+           
+            <li class="nav-item"><a class="nav-link" id="members-tab" data-toggle="tab" href="#members" role="tab" aria-controls="members" aria-selected="false" style="font-size: medium;">會員</a></li>
+            <li class="nav-item"><a class="nav-link" id="orders-tab" data-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false" style="font-size: medium;">我的訂單</a></li>
+            <li class="nav-item"><a class="nav-link" id="message-tab" data-toggle="tab" href="#message" role="tab" aria-controls="message" aria-selected="false" style="font-size: medium;">訊息</a></li>
+            <li class="nav-item"><a class="nav-link" id="message-tab" data-toggle="tab" href="#favorite" role="tab" aria-controls="favorite" aria-selected="false" style="font-size: medium;">追蹤商品</a></li>
+          </ul>
+
+
+
+
+
+          <div class="tab-content mb-5" id="myTabContent">
+
+
+   
+
+
+
+
+            <!---會員頁面--------->
+            <div class="tab-pane fade" id="members" role="tabpanel" aria-labelledby="members-tab">
+              <div class="p-4 p-lg-5 bg-white">
+                 
+                  <h5 class="text-uppercase"> {{unit.userid}}</h5>
+                  <p class="text-muted text-small mb-0"> 一般會員 </p>  
+                  <br>
+                
+
+                  <h5 class="text-uppercase">編輯會員資料 </h5>
+              
+              
+
+                
+                  <table>
+                  <tr><td class="text-muted text-large mb-0 ml-6">  姓名： </td>     <td><input style="margin:10px" value="{{ unit.name }}"></td></tr>         
+                  <tr><td class="text-muted text-large mb-0">  電子信箱： </td>  <td><input style="margin:10px" value="{{ unit.usermail }}"></td></tr>
+                  <tr><td class="text-muted text-large mb-0">  密碼： </td>  <td><a href="#"  style="margin-top:50px;margin-bottom:50px;margin-left:10px" >設定新密碼</a></td></tr>
+                  <tr><td class="text-muted text-large mb-0">  電話(選填)： </td><td><input value="{{ unit.phone }}" style="margin:10px"></td></tr>
+                  <tr><td class="text-muted text-large mb-0">  地址(選填)： </td><td><input value="{{ unit.address }}" style="margin:10px"></td></tr>
+                  <tr><td class="text-muted text-large mb-0">  facebook(選填)： </td><td><input value="{{ unit.facebook }}" style="margin:10px"></td></tr>
+                  </table>
+                  <br>
+                  <button class="btn btn-dark" type="submit">儲存變更</button>
+                  <button class="btn btn-outline-secondary" type="submit">取消</button>
+                
+              </div>
+            </div>
+            <!----####--------->
+
+
+
+            <!---訂單頁面--------->
+            <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+              <div class="p-4 p-lg-5 bg-white">
+
+                <div style="margin:2%"></div>
+
+                <h5 class="text-uppercase">訂單資料 </h5>
+
+
+                <div class="row">
+                  <div class="col-md-3">訂單號碼</div>
+                  <div class="col-md-2">訂單日期</div>
+                  <div class="col-md-2">合計</div>
+                  <div class="col-md-2">訂單狀態</div>
+                  <div class="col-md-2"></div>
+                  <div class="col-md-1">&nbsp</div>
+                </div>
+                <hr>
+
+                <div class="row align-items-center" style="margin-bottom:10px;margin-top:10px">
+                  <div class="col-md-3">201433254141</div>
+                  <div class="col-md-2">2021-05-28</div>
+                  <div class="col-md-2">$699</div>
+                  <div class="col-md-2">已付款</div>
+                  <div class="col-md-2" ><button>查閱詳情</button></div>
+                  <div class="col-md-1">&nbsp</div>
+                </div>
+
+                <div class="row align-items-center" style="margin-bottom:10px;margin-top:10px">
+                  <div class="col-md-3">201433254141</div>
+                  <div class="col-md-2">2021-05-28</div>
+                  <div class="col-md-2">$699</div>
+                  <div class="col-md-2">已付款</div>
+                  <div class="col-md-2" ><button>查閱詳情</button></div>
+                  <div class="col-md-1">&nbsp</div>
+                </div>
+                
+                <div class="row align-items-center" style="margin-bottom:10px;margin-top:10px">
+                  <div class="col-md-3">201433254141</div>
+                  <div class="col-md-2">2021-05-28</div>
+                  <div class="col-md-2">$699</div>
+                  <div class="col-md-2">已付款</div>
+                  <div class="col-md-2" ><button>查閱詳情</button></div>
+                  <div class="col-md-1">&nbsp</div>
+                </div>
+
+
+                <br>
+                <button class="btn btn-dark" type="submit">儲存變更</button>
+                <button class="btn btn-outline-secondary" type="submit">取消</button>
+                
+              </div>
+            </div>
+            <!----####--------->
+
+            <!--Message 模板-->
+            <div class="tab-pane fade" id="message" role="tabpanel" aria-labelledby="message-tab">
+              <div class="p-4 p-lg-5 bg-white">
+                <div class="card text-center">
+                  <div class="card-header">
+                    編織時光
+                  </div>
+                  <div class="card-body">
+                    
+                    <p class="text-muted">目前未收到編織時光相關訊息 .</p>
+                    <div class="input-group">
+                      <span class="input-group-text">You message</span>
+                      <textarea class="form-control" aria-label="With textarea"></textarea>
+                    </div>
+                    <a href="#" class="btn btn-dark" style="margin-top: 10px;">送出訊息</a>
+                  </div>
+                  <div class="card-footer text-muted">
+                    2 days ago
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!----->       
+            <div class="tab-pane fade" id="favorite" role="tabpanel" aria-labelledby="favorite-tab">
+              <div class="p-4 p-lg-5 bg-white">
+
+                  jf;a
+              </div>
+            </div>     
+
+
+
+
+
+          </div>
+
+        
+
+
+
+        </div>
+      </section>
+    
+
+  
+      <footer class="bg-dark text-white">
+        <div class="container py-4">
+          <div class="row py-5">
+            <div class="col-md-4 mb-3 mb-md-0">
+              <h6 class="text-uppercase mb-3">Customer services</h6>
+              <ul class="list-unstyled mb-0">
+                <li><a class="footer-link" href="#">Help &amp; Contact Us</a></li>
+                <li><a class="footer-link" href="#">Returns &amp; Refunds</a></li>
+                <li><a class="footer-link" href="#">Online Stores</a></li>
+                <li><a class="footer-link" href="#">Terms &amp; Conditions</a></li>
+              </ul>
+            </div>
+            <div class="col-md-4 mb-3 mb-md-0">
+              <h6 class="text-uppercase mb-3">Company</h6>
+              <ul class="list-unstyled mb-0">
+                <li><a class="footer-link" href="#">What We Do</a></li>
+                <li><a class="footer-link" href="#">Available Services</a></li>
+                <li><a class="footer-link" href="#">Latest Posts</a></li>
+                <li><a class="footer-link" href="#">FAQs</a></li>
+              </ul>
+            </div>
+            <div class="col-md-4">
+              <h6 class="text-uppercase mb-3">Social media</h6>
+              <ul class="list-unstyled mb-0">
+                <li><a class="footer-link" href="#">Twitter</a></li>
+                <li><a class="footer-link" href="#">Instagram</a></li>
+                <li><a class="footer-link" href="#">Tumblr</a></li>
+                <li><a class="footer-link" href="#">Pinterest</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="border-top pt-4" style="border-color: #1d1d1d !important">
+            <div class="row">
+              <div class="col-lg-6">
+                <p class="small text-muted mb-0">&copy; 2020 All rights reserved.</p>
+              </div>
+              <div class="col-lg-6 text-lg-right">
+                <p class="small text-muted mb-0">Template designed by <a class="text-white reset-anchor" href="https://bootstraptemple.com/p/bootstrap-ecommerce">Bootstrap Temple</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- JavaScript files-->
+      <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+      <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'vendor/lightbox2/js/lightbox.min.js' %}"></script>
+      <script src="{% static 'vendor/nouislider/nouislider.min.js' %}"></script>
+      <script src="{% static 'vendor/bootstrap-select/js/bootstrap-select.min.js' %}"></script>
+      <script src="{% static 'vendor/owl.carousel2/owl.carousel.min.js' %}"></script>
+      <script src="{% static 'vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js' %}"></script>
+      <script src="{% static 'js/front.js' %}"></script>
+      <script>
+        // ------------------------------------------------------- //
+        //   Inject SVG Sprite - 
+        //   see more here 
+        //   https://css-tricks.com/ajaxing-svg-sprite/
+        // ------------------------------------------------------ //
+        function injectSvgSprite(path) {
+        
+            var ajax = new XMLHttpRequest();
+            ajax.open("GET", path, true);
+            ajax.send();
+            ajax.onload = function(e) {
+            var div = document.createElement("div");
+            div.className = 'd-none';
+            div.innerHTML = ajax.responseText;
+            document.body.insertBefore(div, document.body.childNodes[0]);
+            }
+        }
+        // this is set to BootstrapTemple website as you cannot 
+        // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+        // while using file:// protocol
+        // pls don't forget to change to your domain :)
+        injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg'); 
+        
+      </script>
+      <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    </div>
+  </body>
+</html>

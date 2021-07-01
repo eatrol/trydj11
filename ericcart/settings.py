@@ -24,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '_01fl&a35x6u4^f#y=a*q=imax=x9l&ndm+x@i8-wk_ds73f46'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-# ALLOWED_HOSTS = []
+DEBUG = True
+ALLOWED_HOSTS = []
 
-DEBUG = False
-ALLOWED_HOSTS = ['*']
+# DEBUG = False
+# ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -117,21 +117,29 @@ USE_L10N = True
 
 USE_TZ = True
 
-# MEDIA URL
-
+# MEDIA URL =============
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
-# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Images)================
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
 
-# STATICFILES_DIRS = [  #加入 static 路徑
-# 	os.path.join(BASE_DIR, 'static'),
-# ]
+STATICFILES_DIRS = [  #加入 static 路徑
+	os.path.join(BASE_DIR, 'static'),
+]
+
+# from .settings import *
+# STATIC_ROOT = 'static' 
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  
 
 
-from .settings import *
-STATIC_ROOT = 'static' 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') 
+
+#  設定寄送mail的資訊 ===================
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  #SMTP伺服器
+EMAIL_PORT = 587  #TLS通訊埠號
+EMAIL_USE_TLS = True  #開啟TLS(傳輸層安全性)
+EMAIL_HOST_USER = 'eatrol@gmail.com'  #寄件者電子郵件
+EMAIL_HOST_PASSWORD = 'ibkjmvhnspftwpau'  #Gmail應用程式的密碼

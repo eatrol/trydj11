@@ -12,7 +12,7 @@ class ericorderAdmin(admin.ModelAdmin):
 
 
 class ericuserAdmin(admin.ModelAdmin):
- 	list_display=('id','name','userid','password','score','data')
+ 	list_display=('id','name','userid','password','score','data','address','usermail','phone','facebook')
 
 
 admin.site.register(ericpro,ericproAdmin)

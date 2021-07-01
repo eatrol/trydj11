@@ -1,9 +1,18 @@
-from django.shortcuts import render, redirect
-from myapp.models import ericpro,ericorder
+#from typing_extensions import Required
+from django.shortcuts import render,redirect
+from myapp.models import ericpro,ericorder,ericuser
 from django.http import HttpResponse    # 把HttpResponse叫進來用
 import time
 import hashlib
+from cryptography import *
 from Crypto.Cipher import AES
+
+
+# 寄送email所需要的
+from django.conf import settings
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string # 若寄送HTML郵件需此行
+
 
 # Create your views here.
 def sayhello(request):
@@ -260,6 +269,29 @@ def addorder(request):
 
         return tradeinfo,tradesha256
 
+    def trymail2():
+        ordertime = name[1:4] + '-' + name[5:6] + '-' + name[7:8] + '  ' + name[9:10] + ':' + name[11:12] 
+        clist_pay = clist_sum + 40
+        email_template = render_to_string(
+            'mail_NewOrder.html',
+            { 'name': name,'cName': cName,'cPhone': cPhone,'cMail': cMail,'cAddress': cAddress,'order': order,'clist_sum': clist_sum, 'clist_pay': clist_pay, 'ordertime': ordertime,}
+        )
+
+        email = EmailMessage(
+                '[編織時光] 謝謝你的訂單 #' + name ,       # 電子郵件標題
+                email_template,            # 電子郵件內容
+                settings.EMAIL_HOST_USER,  # 寄件者
+                ['luerichl@gmail.com']     # 收件者
+            )
+
+        email.content_subtype = 'html'  # 此行一定要有, 才會用HTML開啟mail
+        email.fail_silently = False
+        email.send()
+
+
+
+
+
     name = time.strftime("%Y%m%d%H%M%S")
     accept =  False
     status =  '訂單待處理'
@@ -287,6 +319,7 @@ def addorder(request):
     del request.session['shopitem']
     del request.session['shopqty']
 
+    trymail2()
 
     return render(request, "orderinfo.html", locals())
 
@@ -310,6 +343,82 @@ def getorder(request,pk):
         return HttpResponse("Wrong order number")
 
 
+#會員登錄系統===================
+
+def login(request):  
+    userid = request.POST['inputId']       # 抓網頁輸入了帳號欄位
+    userpass = request.POST['inputPass']   # 抓網頁輸入的密碼欄位
+    userid = userid.upper() # 轉換成大寫 (帳號一律用大寫)
+
+    try:
+        unit = ericuser.objects.get(userid = userid, password=userpass)
+        login = True
+        request.session['username'] = unit.userid
+        return redirect("/userpage/")
+    
+
+    except ericuser.DoesNotExist:
+        fffid = "帳號密碼錯誤"
+        return render(request, "login.html", locals())
+
+
+def logout(request):
+    if 'username' in request.session:
+        login = False
+        del request.session['username']
+        
+    return redirect("/userpage/")
+
+def userpage(request):  
+    if 'username' in request.session:
+        print("找到使用者")
+        
+        userid = str(request.session['username'])
+        print("找到資料庫")
+        unit = ericuser.objects.get(userid = userid)
+        print("沒問題")
+        return render(request, "userpage.html", locals())
+    else:
+        return render(request, "login.html", locals())
+
+
+def newuser(request):
+    userid = request.POST["fuserid"]
+    password = request.POST["fpassword"]
+    usermail = request.POST["fusermail"]
+    name = request.POST["fname"]
+    address = request.POST["faddress"]
+    phone = request.POST["fphone"]
+    facebook = request.POST["ffacebook"]
+
+    userid = str(userid.upper())
+
+
+    print(userid)
+
+    # 確認帳號/密碼/信箱不是空白
+    if userid == "" :
+        return HttpResponse("user should not be empty!")
+    if password == "" :
+        return HttpResponse("password should not be empty!")
+    if usermail == "" :
+        return HttpResponse("e-mail should not be empty!")
+
+    try:
+        unit = ericuser.objects.get(userid = userid)
+        return HttpResponse("已有此會員帳號")
+    except:
+        print("hi")
+        
+        unit = ericuser.objects.create(userid = userid,password = password, usermail= usermail ,score=0, name=name ,phone = phone, address = address, facebook = facebook ) 
+        unit.save()  #寫入資料庫
+        request.session['username'] = unit.userid
+        return redirect("/userpage/")
+        
+        #return HttpResponse("會員已建立")
+
+
+#=======================================
 
 
 def main(request):  

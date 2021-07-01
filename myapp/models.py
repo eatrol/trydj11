@@ -52,7 +52,11 @@ class ericuser(models.Model):
 	name = models.CharField(max_length=50, blank=True, default='')
 	userid = models.CharField(max_length=50, blank=True, default='')
 	password = models.CharField(max_length=50, blank=True, default='')	
+	address = models.CharField(max_length=300, blank=True, default='')
+	usermail = models.CharField(max_length=200, blank=True, default='') 
 	score = models.DecimalField(max_digits=7, decimal_places=2)
 	data = models.CharField(max_length=50, blank=True, default='')
+	facebook = models.CharField(max_length=200, blank=True, default='')
+	phone = models.CharField(max_length=50, blank=True, default='')
 	def __str__(self):
 		return self.name
