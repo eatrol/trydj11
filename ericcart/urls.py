@@ -74,8 +74,10 @@ urlpatterns = [
     path('mario/',views.mario),
     path('fishing/',views.fishing),
 
+] 
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # 後面這段很重要, 上傳圖片到資料庫會放在media資料夾, 不加會無法正常顯示圖面
 
 

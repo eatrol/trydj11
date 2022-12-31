@@ -98,6 +98,7 @@ def adminuploadphoto(request,pk):
     product = ericpro.objects.get(id=pk)
     ff1 = request.FILES['logo']
     ff2 = request.POST['fimage']
+    print("上傳圖片完成")
     if ff1:
         print(ff2)
         if ff2 == "image1":

@@ -118,17 +118,19 @@ USE_L10N = True
 USE_TZ = True
 
 # MEDIA URL =============
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Static files (CSS, JavaScript, Images)================
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
 
-#STATICFILES_DIRS = [  #加入 static 路徑
-#	os.path.join(BASE_DIR, 'static'),
-#]
+# STATICFILES_DIRS = [  #加入 static 路徑
+# 	os.path.join(BASE_DIR, 'static'),
+# ]
 
 from .settings import *
 STATIC_ROOT = 'static' 
