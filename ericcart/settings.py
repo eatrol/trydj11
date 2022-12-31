@@ -27,7 +27,7 @@ SECRET_KEY = '_01fl&a35x6u4^f#y=a*q=imax=x9l&ndm+x@i8-wk_ds73f46'
 #DEBUG = True
 #ALLOWED_HOSTS = []
 
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -126,15 +126,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Static files (CSS, JavaScript, Images)================
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
-
+# STATIC_URL = '/static/'
 # STATICFILES_DIRS = [  #加入 static 路徑
 # 	os.path.join(BASE_DIR, 'static'),
 # ]
 
+# 外部用
 from .settings import *
+STATIC_URL = '/static/'
 STATIC_ROOT = 'static' 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  
+
 
 
 
