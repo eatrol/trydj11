@@ -320,7 +320,7 @@ def addorder(request):
     del request.session['shopitem']
     del request.session['shopqty']
 
-    trymail2()
+    #trymail2()
 
     return render(request, "orderinfo.html", locals())
 
